@@ -14,10 +14,10 @@ DWORD GetTargetThreadIDFromProcName(const char * ProcName);
 
 int main(int argc, char * argv[])
 {
-	// Retrieve process ID 
+	// detinere PID 
 	DWORD pID = GetTargetThreadIDFromProcName("Process.exe");
 
-	// Get the dll's full path name 
+	// path full name 
 	char buf[MAX_PATH] = { 0 };
 	GetFullPathName("Example.dll", MAX_PATH, buf, NULL);
 	printf(buf);
@@ -58,10 +58,10 @@ BOOL Inject(DWORD pID, const char * DLL_NAME)
 
 	LoadLibAddy = (LPVOID)GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
 
-	// Allocate space in the process for our DLL 
+	// Aloca memorie 
 	RemoteString = (LPVOID)VirtualAllocEx(Proc, NULL, strlen(DLL_NAME), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
-	// Write the string name of our DLL in the memory allocated 
+	// scrie char/string in memoria alocata 
 	WriteProcessMemory(Proc, (LPVOID)RemoteString, DLL_NAME, strlen(DLL_NAME), NULL);
 
 	// Secventa de load 
